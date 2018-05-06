@@ -1,0 +1,31 @@
+main(){
+	int A;
+	int B;
+	int C;
+	int D;
+	int Temp1;
+	int Temp2;
+	int Temp3;
+	printf("A=");
+	scanf("%d", &A);
+
+	printf("B=");
+	scanf("%d", &B);
+
+	printf("C=");
+	scanf("%d", &C);
+
+	printf("D=");
+	scanf("%d", &D);
+
+	S1: Temp1 = C * 1;
+	S2: Temp2 = B + Temp1;
+	S3: A = Temp2;
+	S4: Temp3 = D / 2;
+	S5: B = Temp3;
+	S6: C = B;
+	printf("A=%d\n", A);
+	printf("B=%d\n", B);
+	printf("C=%d\n", C);
+	printf("D=%d\n", D);
+      }
