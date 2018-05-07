@@ -98,13 +98,19 @@
     #include <stdio.h>
     #include <stdlib.h>
 
-    #include "temp.h"
+    #include "variable.h"
     #include "exprtree.h"
     #include "tac.h"
+    #include "table.h"
+    #include "copy.h"
+    #include "commonsubexpr.h"
 
     #include "exprtree.c"
-    #include "temp.c"
+    #include "variable.c"
     #include "tac.c"    
+    #include "table.c"
+    #include "copy.c"
+    #include "commonsubexpr.c"    
     
     int yylex(void);
     int yyerror(char const *s);
@@ -133,14 +139,14 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 22 "calculator.y"
+#line 28 "calculator.y"
 {
     int value;
     char *str;
     struct tnode *tnode;
 }
 /* Line 193 of yacc.c.  */
-#line 144 "y.tab.c"
+#line 150 "y.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -153,7 +159,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 157 "y.tab.c"
+#line 163 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -440,8 +446,8 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    41,    41,    48,    55,    61,    71,    76,    77,    78,
-      79,    80,    81,    82,    83
+       0,    47,    47,    54,    61,    67,    77,    82,    83,    84,
+      85,    86,    87,    88,    89
 };
 #endif
 
@@ -1354,7 +1360,7 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 41 "calculator.y"
+#line 47 "calculator.y"
     {
                                         (yyval.str) = (yyvsp[(3) - (3)].str);
                                         printf("Answer : %d\n", evaluate((yyvsp[(2) - (3)].tnode)));
@@ -1365,7 +1371,7 @@ yyreduce:
     break;
 
   case 3:
-#line 48 "calculator.y"
+#line 54 "calculator.y"
     {
                                 (yyval.str) = (yyvsp[(2) - (2)].str);
                                 printf("Answer : %d\n", evaluate((yyvsp[(1) - (2)].tnode)));
@@ -1376,7 +1382,7 @@ yyreduce:
     break;
 
   case 4:
-#line 55 "calculator.y"
+#line 61 "calculator.y"
     {
                                                 (yyval.str) = (yyvsp[(4) - (4)].str);
                                                 printf("Answer : %d\n", evaluate((yyvsp[(2) - (4)].tnode)));
@@ -1386,7 +1392,7 @@ yyreduce:
     break;
 
   case 5:
-#line 61 "calculator.y"
+#line 67 "calculator.y"
     {
                                         (yyval.str) = (yyvsp[(3) - (3)].str);
                                         printf("Answer : %d\n", evaluate((yyvsp[(1) - (3)].tnode)));
@@ -1397,48 +1403,48 @@ yyreduce:
     break;
 
   case 7:
-#line 76 "calculator.y"
-    {(yyval.tnode) = makeOperatorNode('+', (yyvsp[(1) - (3)].tnode), (yyvsp[(3) - (3)].tnode));}
+#line 82 "calculator.y"
+    {(yyval.tnode) = makeOperatorNode("+", (yyvsp[(1) - (3)].tnode), (yyvsp[(3) - (3)].tnode));}
     break;
 
   case 8:
-#line 77 "calculator.y"
-    {(yyval.tnode) = makeOperatorNode('-', (yyvsp[(1) - (3)].tnode), (yyvsp[(3) - (3)].tnode));}
+#line 83 "calculator.y"
+    {(yyval.tnode) = makeOperatorNode("-", (yyvsp[(1) - (3)].tnode), (yyvsp[(3) - (3)].tnode));}
     break;
 
   case 9:
-#line 78 "calculator.y"
-    {(yyval.tnode) = makeOperatorNode('*', (yyvsp[(1) - (3)].tnode), (yyvsp[(3) - (3)].tnode));}
+#line 84 "calculator.y"
+    {(yyval.tnode) = makeOperatorNode("*", (yyvsp[(1) - (3)].tnode), (yyvsp[(3) - (3)].tnode));}
     break;
 
   case 10:
-#line 79 "calculator.y"
-    {(yyval.tnode) = makeOperatorNode('/', (yyvsp[(1) - (3)].tnode), (yyvsp[(3) - (3)].tnode));}
+#line 85 "calculator.y"
+    {(yyval.tnode) = makeOperatorNode("/", (yyvsp[(1) - (3)].tnode), (yyvsp[(3) - (3)].tnode));}
     break;
 
   case 11:
-#line 80 "calculator.y"
+#line 86 "calculator.y"
     {(yyval.tnode) = (yyvsp[(2) - (3)].tnode);}
     break;
 
   case 12:
-#line 81 "calculator.y"
+#line 87 "calculator.y"
     {(yyval.tnode) = (yyvsp[(1) - (1)].tnode);}
     break;
 
   case 13:
-#line 82 "calculator.y"
+#line 88 "calculator.y"
     {(yyval.tnode) = (yyvsp[(1) - (1)].tnode);}
     break;
 
   case 14:
-#line 83 "calculator.y"
-    {(yyval.tnode) = makeOperatorNode('=', (yyvsp[(1) - (3)].tnode), (yyvsp[(3) - (3)].tnode));}
+#line 89 "calculator.y"
+    {(yyval.tnode) = makeOperatorNode("=", (yyvsp[(1) - (3)].tnode), (yyvsp[(3) - (3)].tnode));}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1442 "y.tab.c"
+#line 1448 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1652,7 +1658,7 @@ yyreturn:
 }
 
 
-#line 86 "calculator.y"
+#line 92 "calculator.y"
 
 /* Auxiliary functions */
 int yyerror(char const *s){
@@ -1661,18 +1667,39 @@ int yyerror(char const *s){
 }
 
 
+struct quad *head;
 
 int main(void){
     inittemps();
 
+    extern struct quad *head;
+    head = malloc(sizeof(int) + 4*sizeof(struct variable) + sizeof(struct quad));
+    head->next = NULL;
   	yyin = fopen("input_file.txt","r");
     yyparse();
     fclose(yyin);
 
+    rmDupAssign();
+
+    copyElimination();
+
+    updateCommonSubExpr();
+
+    copyElimination();    
+    
     transform2c();
 
-    printf("test1");
-    buildLinkedList4TAC();
-    rmDupAssign();
+    struct RWTable *h = buildRWTable();
+
+    showRWTable(h);
+    
+    getDataDepend(h);
+    
+    showDataDependTable();    
+
+    transfer2sentence();
+    
+    
+    printf("finished.");
     return 0;
 }

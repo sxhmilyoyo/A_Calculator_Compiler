@@ -4,8 +4,6 @@
     #include <stdio.h>
     #include <stdlib.h>
     #include "y.tab.h"
-    #include "variable.h"
-    #include "variable.c"
     int yyerror(char const *);
     struct tnode* makeLeafNode(int n, char* name);
     struct tnode* nodelookup( char *s );
@@ -22,13 +20,13 @@
 %%
 
 [a-zA-Z][a-zA-Z0-9]*	{
-                        struct tnode *sp = nodelookup(yytext);
+                        struct tnode *sp = makeLeafNode(0, yytext);
                         yylval.tnode = sp;
                         return VARIABLE;
                     }
 [0-9]+      {
                 number = atoi(yytext);
-                yylval.tnode = makeLeafNode(number, NULL);
+                yylval.tnode = makeLeafNode(number, "");
                 return NUM;
             }
 "+"         {return PLUS;}

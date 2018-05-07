@@ -1,22 +1,19 @@
-#define TOTAL 20
+#define TOTAL 50
 int yyerror(char const *s);
 
 struct quad{
 	int flag;
-	char operation[10];
-	char arg1[20];
-	char arg2[20];
-	char result[10];
+	struct variable *operation;
+	struct variable *arg1;
+	struct variable *arg2;
+	struct variable *result;
+	struct quad *next;
 }quads[TOTAL];
 
-struct quadLinkedList{
-	int flag;
-	char operation[10];
-	char arg1[20];
-	char arg2[20];
-	char result[10];
-	struct quadLinkedList *next;
-};
+// struct quadLinkedList{
+// 	int flag;
+// 	struct quad *next;
+// };
 
 // head
 // extern struct quad *quadHead;
@@ -26,17 +23,18 @@ struct quadLinkedList{
 struct quad *lookupQuad();
 
 // build quad for each expression
-void buildQuad(char *operation, char *arg1, char *arg2, char *result);
-
+struct quad *buildQuad(struct variable *operation, struct variable *arg1, struct variable *arg2, struct variable *result);
 // build TAC for the syntax tree
-char *buildTAC(tnode *node);
-
-// remove duplicate assignment
-// void rmDupAssign();
-
+struct variable *buildTAC(tnode *node);
 
 // build linked list node
-struct quadLinkedList *buildQuad4ListNode(int flag, char *operation, char *arg1, char *arg2, char *result, struct quadLinkedList *next);
+struct quadLinkedList *buildQuad4ListNode(int flag, struct variable *operation, struct variable *arg1, struct variable *arg2, struct variable *result, struct quadLinkedList *next);
 
 // build linked list for TAC
-struct quadLinkedList *buildLinkedList4TAC();
+struct quad *buildLinkedList4TAC(struct quad *q);
+
+// update the quad node in linked list
+struct quad *updateQuad4ListNode(struct quad *node, struct variable *result, struct quad *next);
+
+// remove the duplicate assignment
+struct quad *rmDupAssign();

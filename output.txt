@@ -3,9 +3,6 @@ main(){
 	int B;
 	int C;
 	int D;
-	int Temp1;
-	int Temp2;
-	int Temp3;
 	printf("A=");
 	scanf("%d", &A);
 
@@ -19,11 +16,10 @@ main(){
 	scanf("%d", &D);
 
 	S1: Temp1=C*1;
-	S2: Temp2=B+Temp1;
-	S3: A=Temp2;
-	S4: Temp3=D/2;
-	S5: B=Temp3;
-	S6: C=B;
+	S2: A=B+Temp1;
+	S3: Temp2=D/2;
+	S4: B=D/2;
+	S5: C=D/2;
 	printf("A=%d\n", A);
 	printf("B=%d\n", B);
 	printf("C=%d\n", C);

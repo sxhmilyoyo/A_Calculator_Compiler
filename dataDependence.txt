@@ -1,0 +1,20 @@
+S1
+	Flow dependence: S2	
+	Output dependence: None	
+	Anti dependence: S5	
+S2
+	Flow dependence: None	
+	Output dependence: None	
+	Anti dependence: S4	
+S3
+	Flow dependence: None	
+	Output dependence: None	
+	Anti dependence: None	
+S4
+	Flow dependence: None	
+	Output dependence: None	
+	Anti dependence: None	
+S5
+	Flow dependence: None	
+	Output dependence: None	
+	Anti dependence: None	

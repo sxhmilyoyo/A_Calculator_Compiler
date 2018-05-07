@@ -1,13 +1,13 @@
-#include "variable.h"
 #include <string.h>
-#define TOTAL 20
+#define TOTAL 50
 
 int yyerror(char const *s);
 
 typedef struct tnode{
     int flag;   //indicate whether the node is a leaf(0: number; 1: variable) or internal node(2: operator)
-    char *varname;      //name of the variable
-    int val;    //value of the expression tree
+    // char *varname;      //name of the variable
+    // int val;    //value of the expression tree
+    struct variable *var;
     char *op;   //operator branch
     struct tnode *left, *right;     //left and right node
 }tnode;
@@ -23,7 +23,7 @@ tnode tnodes[TOTAL];
 tnode *makeLeafNode(int n, char *name);
 
 // construct a operator tnode and set the left and right nodes
-tnode *makeOperatorNode(char c, tnode *l, tnode *r);
+tnode *makeOperatorNode(char *c, tnode *l, tnode *r);
 
 // evaluate an expression tree
 int evaluate(tnode *t);

@@ -462,8 +462,6 @@ char *yytext;
     #include <stdio.h>
     #include <stdlib.h>
     #include "y.tab.h"
-    #include "variable.h"
-    #include "variable.c"
     int yyerror(char const *);
     struct tnode* makeLeafNode(int n, char* name);
     struct tnode* nodelookup( char *s );
@@ -474,7 +472,7 @@ char *yytext;
     char *name;
     int value;
 /* Regular expressions start here */
-#line 478 "lex.yy.c"
+#line 476 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -656,10 +654,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 22 "calculator.l"
+#line 20 "calculator.l"
 
 
-#line 663 "lex.yy.c"
+#line 661 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -744,71 +742,71 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 24 "calculator.l"
+#line 22 "calculator.l"
 {
-                        struct tnode *sp = nodelookup(yytext);
+                        struct tnode *sp = makeLeafNode(0, yytext);
                         yylval.tnode = sp;
                         return VARIABLE;
                     }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 29 "calculator.l"
+#line 27 "calculator.l"
 {
                 number = atoi(yytext);
-                yylval.tnode = makeLeafNode(number, NULL);
+                yylval.tnode = makeLeafNode(number, "");
                 return NUM;
             }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 34 "calculator.l"
+#line 32 "calculator.l"
 {return PLUS;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 35 "calculator.l"
+#line 33 "calculator.l"
 {return MINUS;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 36 "calculator.l"
+#line 34 "calculator.l"
 {return MUL;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 37 "calculator.l"
+#line 35 "calculator.l"
 {return DIV;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 38 "calculator.l"
+#line 36 "calculator.l"
 {return ASSIGN;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 39 "calculator.l"
+#line 37 "calculator.l"
 {return SEMICOLON;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 40 "calculator.l"
+#line 38 "calculator.l"
 {}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 41 "calculator.l"
+#line 39 "calculator.l"
 {return *yytext;}
 	YY_BREAK
 case 11:
 /* rule 11 can match eol */
 YY_RULE_SETUP
-#line 42 "calculator.l"
+#line 40 "calculator.l"
 {return END;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 43 "calculator.l"
+#line 41 "calculator.l"
 {
                 yyerror("unknown character\n");
                 exit(1);
@@ -816,10 +814,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 48 "calculator.l"
+#line 46 "calculator.l"
 ECHO;
 	YY_BREAK
-#line 823 "lex.yy.c"
+#line 821 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1816,7 +1814,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 48 "calculator.l"
+#line 46 "calculator.l"
 
 
 

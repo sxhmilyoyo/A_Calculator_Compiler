@@ -4,13 +4,19 @@
     #include <stdio.h>
     #include <stdlib.h>
 
-    #include "temp.h"
+    #include "variable.h"
     #include "exprtree.h"
     #include "tac.h"
+    #include "table.h"
+    #include "copy.h"
+    #include "commonsubexpr.h"
 
     #include "exprtree.c"
-    #include "temp.c"
+    #include "variable.c"
     #include "tac.c"    
+    #include "table.c"
+    #include "copy.c"
+    #include "commonsubexpr.c"    
     
     int yylex(void);
     int yyerror(char const *s);
@@ -73,14 +79,14 @@ statement   : expr
             // | VARIABLE ASSIGN statement     {$$ = makeOperatorNode('=', $1, $3);}
             ;
 
-expr : expr PLUS expr       {$$ = makeOperatorNode('+', $1, $3);}
-     | expr MINUS expr      {$$ = makeOperatorNode('-', $1, $3);}
-     | expr MUL expr        {$$ = makeOperatorNode('*', $1, $3);}
-     | expr DIV expr        {$$ = makeOperatorNode('/', $1, $3);}
+expr : expr PLUS expr       {$$ = makeOperatorNode("+", $1, $3);}
+     | expr MINUS expr      {$$ = makeOperatorNode("-", $1, $3);}
+     | expr MUL expr        {$$ = makeOperatorNode("*", $1, $3);}
+     | expr DIV expr        {$$ = makeOperatorNode("/", $1, $3);}
      | '(' expr ')'         {$$ = $2;}
      | NUM                  {$$ = $1;}
      | VARIABLE             {$$ = $1;}
-     | VARIABLE ASSIGN expr     {$$ = makeOperatorNode('=', $1, $3);}    
+     | VARIABLE ASSIGN expr     {$$ = makeOperatorNode("=", $1, $3);}    
      ;
 
 %%
@@ -91,18 +97,40 @@ int yyerror(char const *s){
 }
 
 
+struct quad *head;
 
 int main(void){
     inittemps();
 
+    extern struct quad *head;
+    head = malloc(sizeof(int) + 4*sizeof(struct variable) + sizeof(struct quad));
+    head->next = NULL;
   	yyin = fopen("input_file.txt","r");
     yyparse();
     fclose(yyin);
 
+    rmDupAssign();
+
+    copyElimination();
+
+    updateCommonSubExpr();
+
+    // test
+    copyElimination();    
+    
     transform2c();
 
-    printf("test1");
-    buildLinkedList4TAC();
-    rmDupAssign();
+    struct RWTable *h = buildRWTable();
+
+    showRWTable(h);
+    
+    getDataDepend(h);
+    
+    showDataDependTable();    
+
+    transfer2sentence();
+    
+    
+    printf("finished.");
     return 0;
 }
