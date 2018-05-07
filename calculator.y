@@ -5,14 +5,18 @@
     #include <stdlib.h>
 
     #include "temp.h"
-    #include "temp.c"
     #include "exprtree.h"
-    #include "exprtree.c"
+    #include "tac.h"
 
+    #include "exprtree.c"
+    #include "temp.c"
+    #include "tac.c"    
+    
     int yylex(void);
     int yyerror(char const *s);
 
     extern FILE *yyin;
+    
 %}
 
 %union{
@@ -37,27 +41,27 @@
 program : program statement END     {
                                         $$ = $3;
                                         printf("Answer : %d\n", evaluate($2));
-                                        present($2);
+                                        buildTAC($2);
                             
                                         return 0;
                                     }
         | statement END     {
                                 $$ = $2;
                                 printf("Answer : %d\n", evaluate($1));
-                                present($1);
+                                buildTAC($1);
                                 
                                 return 0;
                             }
         | program statement SEMICOLON END   {
                                                 $$ = $4;
                                                 printf("Answer : %d\n", evaluate($2));
-                                                present($2);
+                                                buildTAC($2);
                                                 // exit(1);
                                             }
         | statement SEMICOLON END   {
                                         $$ = $3;
                                         printf("Answer : %d\n", evaluate($1));
-                                        present($1);
+                                        buildTAC($1);
                                         
                                         // exit(1);
                                     }
@@ -86,6 +90,8 @@ int yyerror(char const *s){
     return 0;
 }
 
+
+
 int main(void){
     inittemps();
 
@@ -94,5 +100,9 @@ int main(void){
     fclose(yyin);
 
     transform2c();
+
+    printf("test1");
+    buildLinkedList4TAC();
+    rmDupAssign();
     return 0;
 }

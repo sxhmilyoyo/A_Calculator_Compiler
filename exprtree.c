@@ -156,23 +156,23 @@ void transform2c(){
         }
 
         // present statements
-        struct expr *e;
-        int idx = 1;
-        for(e=exprstack; e < &exprstack[TOTAL]; e++) {
-            /* is it already here? */
-            if (e->flag == 1){
-                fprintf(fp, "\tS%d: %s;\n", idx, e->expr);
-                idx++;
-            }
-        }
-        // struct quad *q;
+        // struct expr *e;
         // int idx = 1;
-        // for(q=quads; q<&quads[TOTAL]; q++){
-        //     if(q != NULL){
-        //         fprintf(fp, "\tS%d: %s %s %s %s;\n", idx, q->result, q->operation, q->arg1, q->arg2);
+        // for(e=exprstack; e < &exprstack[TOTAL]; e++) {
+        //     /* is it already here? */
+        //     if (e->flag == 1){
+        //         fprintf(fp, "\tS%d: %s;\n", idx, e->expr);
         //         idx++;
         //     }
         // }
+        int idx = 1;
+        struct quad *q;
+        for(q=quads; q<&quads[TOTAL]; q++){
+            if(q->flag == 1){
+                fprintf(fp, "\tS%d: %s=%s%s%s;\n", idx, q->result, q->arg1, q->operation, q->arg2);
+                idx++;
+            }
+        }
 
         printf("\n");
 
@@ -186,5 +186,6 @@ void transform2c(){
         fprintf(fp, "      }\n");
 
         fclose(fp);
+        printf("done.");
     }
 }
