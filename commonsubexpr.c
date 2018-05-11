@@ -20,7 +20,7 @@ void updateCommonSubExpr(){
                 pre->next = q;
                 q->next = i;
 
-                // upate i and j
+                // update i and j
                 i->arg1 = t;
                 i->arg2 = NULL;
                 i->operation = NULL;
