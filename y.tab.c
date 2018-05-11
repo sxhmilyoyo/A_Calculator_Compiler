@@ -1685,6 +1685,7 @@ int main(void){
 
     updateCommonSubExpr();
 
+    // test
     copyElimination();    
     
     transform2c();
