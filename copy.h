@@ -12,7 +12,7 @@ struct copyStatement *lookupCopyTables();
 // build copyTables
 void buildCopyTable(struct quad *q);
 
-// eliminate the copy statment
+// eliminate the copy statement
 void eliminateCopy(struct quad *q);
 
 // eliminate copy statements for copy statements
